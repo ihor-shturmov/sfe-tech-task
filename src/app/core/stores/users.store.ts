@@ -1,12 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { User } from '../../shared/models/user';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class UserStore {
   users = signal<User[]>([]);
   user = signal<User | null>(null);
   loading = signal(false);
   error = signal('');
+  token = signal<string | null>(null);
+
 
   setUsers(newUsers: User[]) {
     this.users.set(newUsers);
@@ -14,6 +16,10 @@ export class UserStore {
 
   setUser(newUser: User) {
     this.user.set(newUser);
+  }
+
+  clearUser(): void {
+    this.user.set(null)
   }
 
   setLoading(value: boolean) {
@@ -34,5 +40,23 @@ export class UserStore {
       updated[index] = user;
       this.users.set(updated);
     }
+  }
+
+  setToken(token: string): void {
+    this.token.set(token);
+    localStorage.setItem('access_token', token);
+  }
+
+  loadTokenFromLocalStorage(): void {
+    const storedToken = localStorage.getItem('access_token');
+
+    if (storedToken) {
+      this.setToken(storedToken);
+    }
+  }
+
+  clearToken(): void {
+    this.token.set(null);
+    localStorage.removeItem('access_token');
   }
 }

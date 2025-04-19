@@ -43,4 +43,13 @@ export class UsersFacadeService {
       }
     });
   }
+
+  setUser(user: User): void {
+    this.store.setUser(user);
+  }
+
+  clearUser(): void {
+    this.store.clearUser();
+  }
+
 }
