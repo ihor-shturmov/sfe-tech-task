@@ -6,6 +6,7 @@ import { UsersFacadeService } from '../../../core/facades/users-facade.service';
 
 @Component({
   selector: 'app-user-form-page',
+  standalone: true,
   imports: [
     UserFormComponent
   ],
@@ -25,6 +26,7 @@ export class UserFormPageComponent {
   }
 
   goBack(): void {
+    this.facade.clearUser();
     this.router.navigate(['/users']);
   }
 }

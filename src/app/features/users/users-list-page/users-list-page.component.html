@@ -1,11 +1,16 @@
-<h2>Users</h2>
-<button mat-raised-button color="primary" (click)="goToNew()">Add User</button>
+<div class="user-list-container">
+  <div class="header">
+    <h2>Users</h2>
+    <button mat-raised-button color="primary" (click)="goToNew()">Add User</button>
+  </div>
 
-@if (!facade.loading()) {
-  <app-users-list
-    [users]="facade.users()"
-    (edit)="goToEdit($event)"
-  />
-} @else {
-  <p>Loading...</p>
-}
+  @if (!facade.loading()) {
+    <app-users-list
+      [users]="facade.users()"
+      (edit)="goToEdit($event)"
+    />
+  } @else {
+    <mat-spinner diameter="20"></mat-spinner>
+    <p>Loading...</p>
+  }
+</div>
